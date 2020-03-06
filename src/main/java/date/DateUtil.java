@@ -25,7 +25,6 @@ public class DateUtil{
      */
     public static final String DATE_FORMAT_YYYY = "yyyy";
 
-
     // ==格式到年月 ==
     /**
      * 日期格式，年份和月份，例如：200707，200808
@@ -114,8 +113,6 @@ public class DateUtil{
      */
     public static final String DATE_FORMAT_MMDDHHMI = "MM-dd HH:mm";
 
-
-
     /**
      * 获取某日期的年份
      * @param date
@@ -126,7 +123,6 @@ public class DateUtil{
         cal.setTime(date);
         return cal.get(Calendar.YEAR);
     }
-
     /**
      * 获取某日期的月份
      * @param date
@@ -137,7 +133,6 @@ public class DateUtil{
         cal.setTime(date);
         return cal.get(Calendar.MONTH) + 1;
     }
-
     /**
      * 获取某日期的日数
      * @param date
@@ -149,7 +144,6 @@ public class DateUtil{
         int day=cal.get(Calendar.DATE);//获取日
         return day;
     }
-
     /**
      * 格式化Date时间
      * @param time Date类型时间
@@ -227,7 +221,6 @@ public class DateUtil{
         }
         return date;
     }
-
     /**
      * 格式化String时间
      * @param strTime String类型时间
@@ -416,41 +409,6 @@ public class DateUtil{
         return c.get(Calendar.WEEK_OF_YEAR);
     }
 
-    /**
-     * 获取某一年各星期的始终时间
-     * 实例：getWeekList(2016)，第52周(从2016-12-26至2017-01-01)
-     * @param year
-     * @return
-     */
-    public static HashMap<Integer,String> getWeekTimeOfYear(int year) {
-        HashMap<Integer,String> map = new LinkedHashMap<Integer,String>();
-        Calendar c = new GregorianCalendar();
-        c.set(year, Calendar.DECEMBER, 31, 23, 59, 59);
-        int count = getWeekthOfYear(c.getTime());
-
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyy-MM-dd");
-        String dayOfWeekStart = "";
-        String dayOfWeekEnd = "";
-        for (int i = 1; i <= count; i++) {
-            dayOfWeekStart = sdf.format(getFirstDayOfWeek(year, i));
-            dayOfWeekEnd = sdf.format(getLastDayOfWeek(year, i));
-            map.put(Integer.valueOf(i), "第"+i+"周(从"+dayOfWeekStart + "至" + dayOfWeekEnd+")");
-        }
-        return map;
-
-    }
-
-    /**
-     * 获取某一年的总周数
-     * @param year
-     * @return
-     */
-    public static Integer getWeekCountOfYear(int year){
-        Calendar c = new GregorianCalendar();
-        c.set(year, Calendar.DECEMBER, 31, 23, 59, 59);
-        int count = getWeekthOfYear(c.getTime());
-        return count;
-    }
 
     /**
      * 获取指定日期所在周的第一天
@@ -478,23 +436,6 @@ public class DateUtil{
         return c.getTime();
     }
 
-    /**
-     * 获取某年某周的第一天
-     * @param year 目标年份
-     * @param week 目标周数
-     * @return
-     */
-    public static Date getFirstDayOfWeek(int year, int week) {
-        Calendar c = new GregorianCalendar();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, Calendar.JANUARY);
-        c.set(Calendar.DATE, 1);
-
-        Calendar cal = (GregorianCalendar) c.clone();
-        cal.add(Calendar.DATE, week * 7);
-
-        return getFirstDayOfWeek(cal.getTime());
-    }
 
     /**
      * 获取某年某周的最后一天
@@ -512,77 +453,6 @@ public class DateUtil{
         cal.add(Calendar.DATE, week * 7);
 
         return getLastDayOfWeek(cal.getTime());
-    }
-
-    /**
-     * 获取某年某月的第一天
-     * @param year 目标年份
-     * @param month 目标月份
-     * @return
-     */
-    public static Date getFirstDayOfMonth(int year,int month){
-        month = month-1;
-        Calendar   c   =   Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-
-        int day = c.getActualMinimum(c.DAY_OF_MONTH);
-
-        c.set(Calendar.DAY_OF_MONTH, day);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        return c.getTime();
-    }
-
-    /**
-     * 获取某年某月的最后一天
-     * @param year 目标年份
-     * @param month 目标月份
-     * @return
-     */
-    public static Date getLastDayOfMonth(int year,int month){
-        month = month-1;
-        Calendar   c   =   Calendar.getInstance();
-        c.set(Calendar.YEAR, year);
-        c.set(Calendar.MONTH, month);
-        int day = c.getActualMaximum(c.DAY_OF_MONTH);
-        c.set(Calendar.DAY_OF_MONTH, day);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
-        c.set(Calendar.MILLISECOND, 999);
-        return c.getTime();
-    }
-
-    /**
-     * 获取某个日期为星期几
-     * @param date
-     * @return String "星期*"
-     */
-    public static String getDayWeekOfDate1(Date date) {
-        String[] weekDays = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-
-        int w = cal.get(Calendar.DAY_OF_WEEK) - 1;
-        if (w < 0)
-            w = 0;
-
-        return weekDays[w];
-    }
-
-    /**
-     * 获得指定日期的星期几数
-     * @param date
-     * @return int
-     */
-    public static Integer getDayWeekOfDate2(Date date){
-        Calendar aCalendar = Calendar.getInstance();
-        aCalendar.setTime(date);
-        int weekDay = aCalendar.get(Calendar.DAY_OF_WEEK);
-        return weekDay;
     }
 
     /**
@@ -628,21 +498,6 @@ public class DateUtil{
             return true;
         }
         return false;
-    }
-
-    /**
-     * 将指定日期的时分秒格式为零
-     * @param date
-     * @return
-     */
-    public static Date formatHhMmSsOfDate(Date date) {
-        Calendar cal = Calendar.getInstance();
-        cal.setTime(date);
-        cal.set(Calendar.HOUR_OF_DAY, 0);
-        cal.set(Calendar.MINUTE, 0);
-        cal.set(Calendar.SECOND, 0);
-        cal.set(Calendar.MILLISECOND, 0);
-        return cal.getTime();
     }
 
     /**
