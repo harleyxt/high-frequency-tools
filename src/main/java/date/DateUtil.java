@@ -499,7 +499,6 @@ public class DateUtil{
         }
         return false;
     }
-
     /**
      * 获得指定时间加减参数后的日期(不计算则输入0)
      * @param date 指定日期
@@ -525,7 +524,6 @@ public class DateUtil{
 
         return c.getTime();
     }
-
     /**
      * 获得两个日期的时间戳之差
      * @param startDate
@@ -536,7 +534,6 @@ public class DateUtil{
         long daysBetween=(endDate.getTime()-startDate.getTime()+1000000)/(3600*24*1000);
         return daysBetween;
     }
-
     /**
      * 判断二个时间是否为同年同月
      * @param date1
@@ -554,7 +551,6 @@ public class DateUtil{
         }
         return flag;
     }
-
     /**
      * 获得两个时间相差距离多少天多少小时多少分多少秒
      * @param one 时间参数 1 格式：1990-01-01 12:00:00
@@ -593,7 +589,7 @@ public class DateUtil{
      * @param str2 时间参数 2 格式：2009-01-01 12:00:00
      * @return String 返回值为：{天, 时, 分, 秒}
      */
-    public static long[] getDistanceTime(String str1, String str2) {
+/*    public static long[] getDistanceTime(String str1, String str2) {
         DateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS);
         Date one;
         Date two;
@@ -623,12 +619,12 @@ public class DateUtil{
         return times;
     }
 
-    /**
+    *//**
      * 两个时间之间相差距离多少天
      * @param str1 时间参数 1：
      * @param str2 时间参数 2：
      * @return 相差天数
-     */
+     *//*
     public static Long getDistanceDays(String str1, String str2) throws Exception{
         DateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS);
         Date one;
@@ -652,11 +648,11 @@ public class DateUtil{
         return days;
     }
 
-    /**
+    *//**
      * 获取指定时间的那天 00:00:00.000 的时间
      * @param date
      * @return
-     */
+     *//*
     public static Date getDayBeginTime(final Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
@@ -667,11 +663,11 @@ public class DateUtil{
         return c.getTime();
     }
 
-    /**
+    *//**
      * 获取指定时间的那天 23:59:59.999 的时间
      * @param date
      * @return
-     */
+     *//*
     public static Date getDayEndTime(final Date date) {
         Calendar c = Calendar.getInstance();
         c.setTime(date);
@@ -680,7 +676,7 @@ public class DateUtil{
         c.set(Calendar.SECOND, 59);
         c.set(Calendar.MILLISECOND, 999);
         return c.getTime();
-    }
+    }*/
 
 
 }
