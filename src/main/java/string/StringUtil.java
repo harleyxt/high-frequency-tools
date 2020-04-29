@@ -265,98 +265,7 @@ public class StringUtil implements Serializable {
             }
             return string.toString();
         }
-        /**
-         *
-         * TODO URL转换为参数字符串
-         * 如 "index.jsp?id=123&code=tom"，解析为id=123&code=tom
-         * @author MrXiao
-         * @date 2017年4月27日 上午11:24:23
-         * @param url
-         * @return
-         */
-        public static String truncateUrlPage(String url) {
-            if (url == null) {
-                return null;
-            }
-            url = url.trim().toLowerCase();
 
-            if (url.contains("?")) {
-                String[] arrSplit = url.split("[?]");
-                if (arrSplit.length > 1) {
-                    if (arrSplit[1] != null) {
-                        return arrSplit[1];
-                    }
-                }
-            }
-            return url;
-        }
-
-        /**
-         *
-         * TODO URL参数转换为Map
-         * id=123&code=tom转换为Map
-         * @author MrXiao
-         * @date 2017年4月27日 上午11:28:10
-         * @param urlParamStr
-         * @return
-         */
-        public static Map<String, String> urlParam(String urlParamStr){
-            Map<String, String> map = new HashMap<String, String>();
-            String strUrlParam = truncateUrlPage(urlParamStr);
-            if (strUrlParam == null) {
-                return map;
-            }
-            // 每个键值为一组
-            String[] arrSplit = strUrlParam.split("[&]");
-            for (String strSplit : arrSplit) {
-                String[] arrSplitEqual = strSplit.split("[=]");
-
-                // 解析出键值
-                if (arrSplitEqual.length > 1) {
-                    if(arrSplitEqual[1] != null && arrSplitEqual[1].contains("%")){
-                        // 正确解析
-                        try {
-                            map.put(arrSplitEqual[0], URLDecoder.decode(arrSplitEqual[1], "UTF-8"));
-                        } catch (UnsupportedEncodingException e) {
-                            // TODO Auto-generated catch block
-                            e.printStackTrace();
-                        }
-                    } else {
-                        // 正确解析
-                        map.put(arrSplitEqual[0], trim(arrSplitEqual[1]));
-                    }
-                } else {
-                    if (arrSplitEqual[0] != "") {
-                        // 只有参数没有值，不加入
-                        map.put(arrSplitEqual[0], "");
-                    }
-                }
-            }
-            return map;
-        }
-
-
-        /**
-         * @see #join(Object[] array, String sep, String prefix)
-         */
-        public static String join(Object[] array, String sep) {
-            return join(array, sep, null);
-        }
-
-        /**
-         * @see #join(Object[] array, String sep, String prefix)
-         */
-        public static String join(Collection<?> list, String sep) {
-            return join(list, sep, null);
-        }
-
-        /**
-         * @see #join(Object[] array, String sep, String prefix)
-         */
-        public static String join(Collection<?> list, String sep, String prefix) {
-            Object[] array = list == null ? null : list.toArray();
-            return join(array, sep, prefix);
-        }
 
         /**
          * 以指定的分隔符来进行字符串元素连接
@@ -405,69 +314,9 @@ public class StringUtil implements Serializable {
             return buf.toString();
         }
 
-        /**
-         * 以json元素的方式连接字符串中元素
-         * <p>
-         * 例如有字符串数组array
-         * <code>
-         * String[] array = new String[] { "hello", "world", "qiniu", "cloud","storage" };
-         * </code>
-         * 那么得到的结果是:
-         * <code>
-         * "hello","world","qiniu","cloud","storage"
-         * </code>
-         * </p>
-         *
-         * @param array 需要连接的字符串数组
-         * @return 以json元素方式连接好的新字符串
-         */
-        public static String jsonJoin(String[] array) {
-            int arraySize = array.length;
-            int bufSize = arraySize * (array[0].length() + 3);
-            StringBuilder buf = new StringBuilder(bufSize);
-            for (int i = 0; i < arraySize; i++) {
-                if (i > 0) {
-                    buf.append(',');
-                }
-
-                buf.append('"');
-                buf.append(array[i]);
-                buf.append('"');
-            }
-            return buf.toString();
-        }
 
         public static boolean isNullOrEmpty(String s) {
             return s == null || "".equals(s);
-        }
-
-        public static boolean inStringArray(String s, String[] array) {
-            for (String x : array) {
-                if (x.equals(s)) {
-                    return true;
-                }
-            }
-            return false;
-        }
-
-        public static byte[] utf8Bytes(String data) {
-            try {
-                return data.getBytes(DEFAULT_CHART);
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
-        }
-
-        public static String utf8String(byte[] data) {
-            try {
-                return new String(data, DEFAULT_CHART);
-            } catch (UnsupportedEncodingException e) {
-                // TODO Auto-generated catch block
-                e.printStackTrace();
-            }
-            return null;
         }
 
         public static boolean isBlank(String value) {
@@ -501,42 +350,5 @@ public class StringUtil implements Serializable {
             }
             return true;
         }
-
-        public static boolean isNotBlank(String value) {
-            return !isBlank(value);
-        }
-
-        public static boolean isNotBlankLoop(String ...values) {
-            return !isBlankLoop(values);
-        }
-
-        /**
-         * 检查指定的字符串列表是否不为空。
-         */
-        public static boolean areNotEmpty(String... values) {
-            boolean result = true;
-            if (values == null || values.length == 0) {
-                result = false;
-            } else {
-                for (String value : values) {
-                    result &= !isEmpty(value);
-                }
-            }
-            return result;
-        }
-
-        /**
-         * 首字母大写
-         * @param str
-         * @return
-         */
-        public static String getFirstUpper(String str) {
-            String newStr = "";
-            if (str.length() > 0) {
-                newStr = str.substring(0, 1).toUpperCase() + str.substring(1, str.length());
-            }
-            return newStr;
-        }
-
 
 }
