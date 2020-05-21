@@ -1,13 +1,8 @@
 package string;
 
 import java.io.Serializable;
-import java.io.UnsupportedEncodingException;
 import java.math.BigDecimal;
-import java.net.URLDecoder;
 import java.nio.charset.StandardCharsets;
-import java.util.Collection;
-import java.util.HashMap;
-import java.util.Map;
 
 /**
  * 字符串工具类
@@ -16,7 +11,6 @@ import java.util.Map;
  * @date 2020/4/7
  */
 public class StringUtil implements Serializable {
-
 
         /***/
         private static final long serialVersionUID = 1L;
@@ -126,7 +120,6 @@ public class StringUtil implements Serializable {
                 return 0;
             }
         }
-
         /**
          * 替换字符串,支持字符串为空的情形
          * @param strData
@@ -153,7 +146,6 @@ public class StringUtil implements Serializable {
             strData = replace(strData, "\"", "&quot;");
             return strData;
         }
-
         /**
          * 从指定位置截取指定长度的字符串
          * @param
@@ -289,21 +281,16 @@ public class StringUtil implements Serializable {
             if (array == null) {
                 return "";
             }
-
             int arraySize = array.length;
-
             if (arraySize == 0) {
                 return "";
             }
-
             if (sep == null) {
                 sep = "";
             }
-
             if (prefix == null) {
                 prefix = "";
             }
-
             StringBuilder buf = new StringBuilder(prefix);
             for (int i = 0; i < arraySize; i++) {
                 if (i > 0) {
@@ -313,7 +300,6 @@ public class StringUtil implements Serializable {
             }
             return buf.toString();
         }
-
 
         public static boolean isNullOrEmpty(String s) {
             return s == null || "".equals(s);
@@ -337,8 +323,7 @@ public class StringUtil implements Serializable {
             if (values == null || (strLen = values.length) == 0) {
                 return true;
             }
-            for (String value: values
-            ) {
+            for (String value: values) {
                 if (value == null || (strLen = value.length()) == 0) {
                     continue;
                 }
@@ -350,5 +335,4 @@ public class StringUtil implements Serializable {
             }
             return true;
         }
-
 }
