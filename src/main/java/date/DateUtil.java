@@ -237,7 +237,6 @@ public class DateUtil{
             return defaultValue;
         }
     }
-
     /**
      * 当strTime为2008-9时返回为2008-9-1 00:00格式日期时间，无法转换返回null.
      * @param strTime
@@ -262,7 +261,6 @@ public class DateUtil{
         list.add(DATE_FORMAT_YYYYMM);
         list.add(DATE_FORMAT_YYYY);
 
-
         for (Iterator iter = list.iterator(); iter.hasNext();) {
             String format = (String) iter.next();
             if(strTime.indexOf("-")>0 && format.indexOf("-")<0)
@@ -278,7 +276,6 @@ public class DateUtil{
 
         return date;
     }
-
     /**
      * 解析两个日期之间的所有月份
      * @param beginDateStr 开始日期，至少精确到yyyy-MM
@@ -325,7 +322,6 @@ public class DateUtil{
             return null;
         }
     }
-
     /**
      * 解析两个日期段之间的所有日期
      * @param beginDateStr 开始日期  ，至少精确到yyyy-MM-dd
@@ -335,20 +331,16 @@ public class DateUtil{
     public static List<String> getDayListOfDate(String beginDateStr, String endDateStr) {
         // 指定要解析的时间格式
         SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
-
         // 定义一些变量
         Date beginDate = null;
         Date endDate = null;
-
         Calendar beginGC = null;
         Calendar endGC = null;
         List<String> list = new ArrayList<String>();
-
         try {
             // 将字符串parse成日期
             beginDate = f.parse(beginDateStr);
             endDate = f.parse(endDateStr);
-
             // 设置日历
             beginGC = Calendar.getInstance();
             beginGC.setTime(beginDate);
