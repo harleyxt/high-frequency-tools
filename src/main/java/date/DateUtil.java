@@ -4,6 +4,9 @@ import java.sql.Timestamp;
 import java.text.DateFormat;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -574,7 +577,17 @@ public class DateUtil{
         long[] times = {day, hour, min, sec};
         return times;
     }
-
+    /**
+     * 将long型时间戳转成日期类型
+     *
+     * @param timestamp
+     * @return
+     */
+    public LocalDateTime getDateTimeOfTimestamp(long timestamp) {
+        Instant instant = Instant.ofEpochMilli(timestamp);
+        ZoneId zone = ZoneId.systemDefault();
+        return LocalDateTime.ofInstant(instant, zone);
+    }
     /**
      * 两个时间相差距离多少天多少小时多少分多少秒
      * @param str1 时间参数 1 格式：1990-01-01 12:00:00
