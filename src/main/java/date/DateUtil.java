@@ -62,24 +62,6 @@ public class DateUtil{
     public static final String DATE_FORMAT_YYYY_MM_DD = "yyyy-MM-dd";
 
     /**
-     * 日期格式，年月日，例如：2016.10.05
-     */
-    public static final String DATE_FORMAT_POINTYYYYMMDD = "yyyy.MM.dd";
-
-    /**
-     * 日期格式，年月日，例如：2016年10月05日
-     */
-    public static final String DATE_TIME_FORMAT_YYYY年MM月DD日 = "yyyy年MM月dd日";
-
-
-    // ==格式到年月日 时分 ==
-
-    /**
-     * 日期格式，年月日时分，例如：200506301210，200808081210
-     */
-    public static final String DATE_FORMAT_YYYYMMDDHHmm = "yyyyMMddHHmm";
-
-    /**
      * 日期格式，年月日时分，例如：20001230 12:00，20080808 20:08
      */
     public static final String DATE_TIME_FORMAT_YYYYMMDD_HH_MI = "yyyyMMdd HH:mm";
@@ -258,7 +240,6 @@ public class DateUtil{
         list.add(DATE_TIME_FORMAT_YYYYMMDD_HH_MI);
         list.add(DATE_TIME_FORMAT_YYYYMMDDHHMISS);
         list.add(DATE_FORMAT_YYYY_MM_DD);
-        //list.add(DATE_FORMAT_YY_MM_DD);
         list.add(DATE_FORMAT_YYYYMMDD);
         list.add(DATE_FORMAT_YYYY_MM);
         list.add(DATE_FORMAT_YYYYMM);
@@ -287,7 +268,7 @@ public class DateUtil{
      */
     public static List<String> getMonthListOfDate(String beginDateStr, String endDateStr) {
         // 指定要解析的时间格式
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM");
+        SimpleDateFormat f = new SimpleDateFormat(DATE_FORMAT_YYYY_MM);
         // 返回的月份列表
         String sRet = "";
 
@@ -469,11 +450,7 @@ public class DateUtil{
         list.add(DATE_TIME_FORMAT_YYYYMMDD_HH_MI);
         list.add(DATE_TIME_FORMAT_YYYYMMDDHHMISS);
         list.add(DATE_FORMAT_YYYY_MM_DD);
-        //list.add(DATE_FORMAT_YY_MM_DD);
         list.add(DATE_FORMAT_YYYYMMDD);
-        //list.add(DATE_FORMAT_YYYY_MM);
-        //list.add(DATE_FORMAT_YYYYMM);
-        //list.add(DATE_FORMAT_YYYY);
 
         for (Iterator iter = list.iterator(); iter.hasNext();) {
             String format = (String) iter.next();
@@ -588,100 +565,6 @@ public class DateUtil{
         ZoneId zone = ZoneId.systemDefault();
         return LocalDateTime.ofInstant(instant, zone);
     }
-    /**
-     * 两个时间相差距离多少天多少小时多少分多少秒
-     * @param str1 时间参数 1 格式：1990-01-01 12:00:00
-     * @param str2 时间参数 2 格式：2009-01-01 12:00:00
-     * @return String 返回值为：{天, 时, 分, 秒}
-     */
-/*    public static long[] getDistanceTime(String str1, String str2) {
-        DateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS);
-        Date one;
-        Date two;
-        long day = 0;
-        long hour = 0;
-        long min = 0;
-        long sec = 0;
-        try {
-            one = df.parse(str1);
-            two = df.parse(str2);
-            long time1 = one.getTime();
-            long time2 = two.getTime();
-            long diff ;
-            if(time1<time2) {
-                diff = time2 - time1;
-            } else {
-                diff = time1 - time2;
-            }
-            day = diff / (24 * 60 * 60 * 1000);
-            hour = (diff / (60 * 60 * 1000) - day * 24);
-            min = ((diff / (60 * 1000)) - day * 24 * 60 - hour * 60);
-            sec = (diff/1000-day*24*60*60-hour*60*60-min*60);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        long[] times = {day, hour, min, sec};
-        return times;
-    }
-
-    *//**
-     * 两个时间之间相差距离多少天
-     * @param str1 时间参数 1：
-     * @param str2 时间参数 2：
-     * @return 相差天数
-     *//*
-    public static Long getDistanceDays(String str1, String str2) throws Exception{
-        DateFormat df = new SimpleDateFormat(DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS);
-        Date one;
-        Date two;
-        long days=0;
-        try {
-            one = df.parse(str1);
-            two = df.parse(str2);
-            long time1 = one.getTime();
-            long time2 = two.getTime();
-            long diff ;
-            if(time1<time2) {
-                diff = time2 - time1;
-            } else {
-                diff = time1 - time2;
-            }
-            days = diff / (1000 * 60 * 60 * 24);
-        } catch (ParseException e) {
-            e.printStackTrace();
-        }
-        return days;
-    }
-
-    *//**
-     * 获取指定时间的那天 00:00:00.000 的时间
-     * @param date
-     * @return
-     *//*
-    public static Date getDayBeginTime(final Date date) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.set(Calendar.HOUR_OF_DAY, 0);
-        c.set(Calendar.MINUTE, 0);
-        c.set(Calendar.SECOND, 0);
-        c.set(Calendar.MILLISECOND, 0);
-        return c.getTime();
-    }
-
-    *//**
-     * 获取指定时间的那天 23:59:59.999 的时间
-     * @param date
-     * @return
-     *//*
-    public static Date getDayEndTime(final Date date) {
-        Calendar c = Calendar.getInstance();
-        c.setTime(date);
-        c.set(Calendar.HOUR_OF_DAY, 23);
-        c.set(Calendar.MINUTE, 59);
-        c.set(Calendar.SECOND, 59);
-        c.set(Calendar.MILLISECOND, 999);
-        return c.getTime();
-    }*/
 
 
 }
