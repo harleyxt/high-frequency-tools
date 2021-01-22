@@ -7,7 +7,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
-import java.nio.file.Files;
 import java.text.DecimalFormat;
 
 /**
@@ -23,7 +22,7 @@ public class FileUtils {
     private static final int SIZETYPE_MB = 3;//获取文件大小单位为MB的double值
     private static final int SIZETYPE_GB = 4;//获取文件大小单位为GB的double值
 
-    private FileUtils (){};
+    private FileUtils (){}
 
     /**
      * 创建文件
@@ -142,7 +141,7 @@ public class FileUtils {
 
                 if (temp.isFile()) {
                     FileInputStream input = new FileInputStream(temp);
-                    FileOutputStream output = new FileOutputStream(dirToPath + "/" + (temp.getName()).toString());
+                    FileOutputStream output = new FileOutputStream(dirToPath + "/" + (temp.getName()));
                     byte[] b = new byte[1024 * 5];
                     int len;
                     while ((len = input.read(b)) != -1) {
@@ -213,7 +212,7 @@ public class FileUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return FormetFileSize(blockSize, sizeType);
+        return formetFileSize(blockSize, sizeType);
     }
 
     /**
@@ -233,7 +232,7 @@ public class FileUtils {
         } catch (Exception e) {
             e.printStackTrace();
         }
-        return FormetFileSize(blockSize);
+        return formetFileSize(blockSize);
     }
 
     /**
@@ -264,7 +263,7 @@ public class FileUtils {
      */
     private static long getFileSizes(File f) throws Exception {
         long size = 0;
-        File flist[] = f.listFiles();
+        File[] flist = f.listFiles();
         for (int i = 0; i < flist.length; i++){
             if (flist[i].isDirectory()){
                 size = size + getFileSizes(flist[i]);
@@ -280,7 +279,7 @@ public class FileUtils {
      * @param fileS
      * @return
      */
-    private static String FormetFileSize(long fileS) {
+    private static String formetFileSize(long fileS) {
         DecimalFormat df = new DecimalFormat("#.00");
         String fileSizeString = "";
         String wrongSize="0B";
@@ -307,7 +306,7 @@ public class FileUtils {
      * @param sizeType
      * @return
      */
-    private static double FormetFileSize(long fileS,int sizeType) {
+    private static double formetFileSize(long fileS, int sizeType) {
         DecimalFormat df = new DecimalFormat("#.00");
         double fileSizeLong = 0;
         switch (sizeType) {
