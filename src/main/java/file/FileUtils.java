@@ -7,6 +7,7 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.nio.channels.FileChannel;
+import java.nio.file.Files;
 import java.text.DecimalFormat;
 
 /**
@@ -21,6 +22,8 @@ public class FileUtils {
     private static final int SIZETYPE_KB = 2;//获取文件大小单位为KB的double值
     private static final int SIZETYPE_MB = 3;//获取文件大小单位为MB的double值
     private static final int SIZETYPE_GB = 4;//获取文件大小单位为GB的double值
+
+    private FileUtils (){};
 
     /**
      * 创建文件
@@ -105,26 +108,16 @@ public class FileUtils {
      * @return  返回成功与否
      */
     public static boolean copyFile(String fileFromPath, String fileToPath){
-        FileChannel inputChannel = null;
-        FileChannel outputChannel = null;
-        try {
-            inputChannel = new FileInputStream(new File(fileFromPath)).getChannel();
-            outputChannel = new FileOutputStream(new File(fileToPath)).getChannel();
+        try (FileChannel inputChannel = new FileInputStream(fileFromPath).getChannel();
+              FileChannel outputChannel = new FileOutputStream(new File(fileToPath)).getChannel()) {
+
             outputChannel.transferFrom(inputChannel, 0, inputChannel.size());
-            try {
-                inputChannel.close();
-                outputChannel.close();
-                return true;
-            }catch (IOException ioe){
-                ioe.printStackTrace();
-                log.error("关闭文件复制流{}失败",fileFromPath);
-                return false;
-            }
         } catch (IOException ioe){
             ioe.printStackTrace();
             log.error("复制文件{}失败",fileFromPath);
             return false;
         }
+        return true;
     }
 
     /**

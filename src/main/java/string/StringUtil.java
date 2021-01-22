@@ -22,7 +22,7 @@ public class StringUtil implements Serializable {
          * @return
          */
         public static Long timeStrToLong(String time){
-            String str=time.replaceAll(":", "");
+            String str=time.replace(":", "");
             return toLong(str);
         }
 
@@ -41,14 +41,7 @@ public class StringUtil implements Serializable {
          * @return
          */
         public static boolean isEmpty(Object o) {
-            if (o == null) {
-                return true;
-            }
-            if ("".equals(filterNull(o.toString()))) {
-                return true;
-            } else {
-                return false;
-            }
+            return StringUtil.isEmpty(o);
         }
 
         /**
@@ -57,14 +50,7 @@ public class StringUtil implements Serializable {
          * @return
          */
         public static boolean isNotEmpty(Object o) {
-            if (o == null) {
-                return false;
-            }
-            if ("".equals(filterNull(o.toString()))) {
-                return false;
-            } else {
-                return true;
-            }
+            return !StringUtil.isEmpty(o);
         }
 
         /**
@@ -77,6 +63,7 @@ public class StringUtil implements Serializable {
                 new BigDecimal(o.toString());
                 return true;
             } catch (Exception e) {
+                e.printStackTrace();
             }
             return false;
         }
@@ -88,9 +75,10 @@ public class StringUtil implements Serializable {
          */
         public static boolean isLong(Object o) {
             try {
-                new Long(o.toString());
+                Long.parseLong(o.toString());
                 return true;
             } catch (Exception e) {
+                e.printStackTrace();
             }
             return false;
         }
@@ -102,7 +90,7 @@ public class StringUtil implements Serializable {
          */
         public static Long toLong(Object o) {
             if (isLong(o)) {
-                return new Long(o.toString());
+                return Long.parseLong(o.toString());
             } else {
                 return 0L;
             }
@@ -115,7 +103,7 @@ public class StringUtil implements Serializable {
          */
         public static int toInt(Object o) {
             if (isNumber(o)) {
-                return new Integer(o.toString());
+                return Integer.parseInt(o.toString());
             } else {
                 return 0;
             }
@@ -167,10 +155,8 @@ public class StringUtil implements Serializable {
         public static String changeDirection(String strDir) {
             String s = "/";
             String a = "\\";
-            if (strDir != null && !" ".equals(strDir)) {
-                if (strDir.contains(s)) {
+            if (!StringUtil.isBlank(strDir) && strDir.contains(s)) {
                     strDir = strDir.replace(s, a);
-                }
             }
             return strDir;
         }
@@ -179,7 +165,6 @@ public class StringUtil implements Serializable {
          * 去除字符串中 头和尾的空格，中间的空格保留
          *
          * @Title: trim
-         * @Description: TODO
          * @return String
          * @throws
          */
@@ -203,7 +188,7 @@ public class StringUtil implements Serializable {
         public static String getBrackets(String str) {
             int a = str.indexOf("{");
             int c = str.indexOf("}");
-            if (a >= 0 && c >= 0 & c > a) {
+            if (a >= 0 && (c >= 0 && c > a)) {
                 return (str.substring(a + 1, c));
             } else {
                 return str;
@@ -234,7 +219,7 @@ public class StringUtil implements Serializable {
          * 字符串转换unicode
          */
         public static String string2Unicode(String string) {
-            StringBuffer unicode = new StringBuffer();
+            StringBuilder unicode = new StringBuilder();
             for (int i = 0; i < string.length(); i++) {
                 // 取出每一个字符
                 char c = string.charAt(i);
@@ -247,7 +232,7 @@ public class StringUtil implements Serializable {
          * unicode 转字符串
          */
         public static String unicode2String(String unicode) {
-            StringBuffer string = new StringBuffer();
+            StringBuilder string = new StringBuilder();
             String[] hex = unicode.split("\\\\u");
             for (int i = 1; i < hex.length; i++) {
                 // 转换出每一个代码点
@@ -311,26 +296,8 @@ public class StringUtil implements Serializable {
                 return true;
             }
             for (int i = 0; i < strLen; i++) {
-                if ((Character.isWhitespace(value.charAt(i)) == false)) {
+                if (!Character.isWhitespace(value.charAt(i))) {
                     return false;
-                }
-            }
-            return true;
-        }
-
-        public static boolean isBlankLoop(String ...values) {
-            int strLen;
-            if (values == null || (strLen = values.length) == 0) {
-                return true;
-            }
-            for (String value: values) {
-                if (value == null || (strLen = value.length()) == 0) {
-                    continue;
-                }
-                for (int i = 0; i < strLen; i++) {
-                    if ((Character.isWhitespace(value.charAt(i)) == false)) {
-                        return false;
-                    }
                 }
             }
             return true;
