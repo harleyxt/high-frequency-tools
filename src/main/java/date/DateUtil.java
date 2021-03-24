@@ -2,19 +2,11 @@ package date;
 
 import java.sql.Timestamp;
 import java.text.DateFormat;
-import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.time.Instant;
 import java.time.LocalDateTime;
 import java.time.ZoneId;
-import java.util.ArrayList;
-import java.util.Calendar;
-import java.util.Date;
-import java.util.GregorianCalendar;
-import java.util.HashMap;
-import java.util.Iterator;
-import java.util.LinkedHashMap;
-import java.util.List;
+import java.util.*;
 /**
  * @author harley
  * @version 1.0
@@ -126,8 +118,7 @@ public class DateUtil{
     public static Integer getDay(Date date){
         Calendar cal = Calendar.getInstance();
         cal.setTime(date);
-        int day=cal.get(Calendar.DATE);//获取日
-        return day;
+        return cal.get(Calendar.DATE);//获取日;
     }
     /**
      * 格式化Date时间
@@ -232,7 +223,7 @@ public class DateUtil{
             return null;
 
         Date date = null;
-        List<String> list = new ArrayList<String>(0);
+        List<String> list = new ArrayList<>(0);
 
         list.add(DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS);
         list.add(DATE_TIME_FORMAT_YYYYMMDDHHMISSSSS);
@@ -278,7 +269,7 @@ public class DateUtil{
 
         GregorianCalendar beginGC = null;
         GregorianCalendar endGC = null;
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
 
         try {
             // 将字符串parse成日期
@@ -314,13 +305,13 @@ public class DateUtil{
      */
     public static List<String> getDayListOfDate(String beginDateStr, String endDateStr) {
         // 指定要解析的时间格式
-        SimpleDateFormat f = new SimpleDateFormat("yyyy-MM-dd");
+        SimpleDateFormat f = new SimpleDateFormat(DATE_FORMAT_YYYY_MM_DD);
         // 定义一些变量
         Date beginDate = null;
         Date endDate = null;
         Calendar beginGC = null;
         Calendar endGC = null;
-        List<String> list = new ArrayList<String>();
+        List<String> list = new ArrayList<>();
         try {
             // 将字符串parse成日期
             beginDate = f.parse(beginDateStr);
@@ -357,7 +348,7 @@ public class DateUtil{
         if (before<0 || behind<0) {
             return null;
         }
-        List<Integer> list = new ArrayList<Integer>();
+        List<Integer> list = new ArrayList<>();
         Calendar c = null;
         c = Calendar.getInstance();
         c.setTime(new Date());
@@ -442,7 +433,7 @@ public class DateUtil{
             return false;
 
         Date date = null;
-        List<String> list = new ArrayList<String>(0);
+        List<String> list = new ArrayList<>(0);
 
         list.add(DATE_TIME_FORMAT_YYYY_MM_DD_HH_MI_SS);
         list.add(DATE_TIME_FORMAT_YYYYMMDDHHMISSSSS);
@@ -503,8 +494,7 @@ public class DateUtil{
      * @return
      */
     public static Long getDistanceTimestamp(Date startDate,Date endDate){
-        long daysBetween=(endDate.getTime()-startDate.getTime()+1000000)/(3600*24*1000);
-        return daysBetween;
+        return (endDate.getTime()-startDate.getTime()+1000000)/(3600*24*1000);
     }
     /**
      * 判断二个时间是否为同年同月
@@ -551,8 +541,7 @@ public class DateUtil{
         } catch (Exception e) {
             e.printStackTrace();
         }
-        long[] times = {day, hour, min, sec};
-        return times;
+        return new long[]{day, hour, min, sec};
     }
     /**
      * 将long型时间戳转成日期类型

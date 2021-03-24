@@ -164,6 +164,12 @@ public class FileUtils {
         return result;
     }
 
+    /**
+     * 移动文件
+     * @param fileFromPath 原文件路径
+     * @param fileToPath 新文件路径
+     * @return
+     */
     public static boolean moveFile(String fileFromPath,String fileToPath){
         if(copyFile(fileFromPath,fileToPath)){
             if(deleteFile(fileFromPath)){
@@ -180,6 +186,12 @@ public class FileUtils {
         }
     }
 
+    /**
+     * 移动目录
+     * @param dirFromPath 原目录
+     * @param dirToPath 新目录
+     * @return
+     */
     public static boolean moveDir(String dirFromPath,String dirToPath){
         if(copyDir(dirFromPath,dirToPath)){
             if(deleteDir(dirFromPath)){
